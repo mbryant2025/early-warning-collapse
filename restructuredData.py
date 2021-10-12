@@ -115,7 +115,3 @@ for avg in enumerate(indAvgs):
 saveToFile(indAvgs)
 
 showPlot(data, totAvgs, indAvgs)
-
-
-#TODO
-#Output data to file
