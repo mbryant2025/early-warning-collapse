@@ -57,58 +57,65 @@ def findIndividualMovingAverages(data, timescale = 2):
     return averages
 
 
-#Displays the data and averages
+#Displays the data and averages, saves plot to local directory
 def showPlot(data, totalAverages=None, individualAverages = None):
     if totalAverages is not None:
         plt.plot(totalAverages, label="Total Averages")
     if individualAverages is not None:
-        for sensor in individualAverages:
-            plt.plot(sensor, label = "Individual Sensor Average")
-    for sensor in data:
-        plt.plot(sensor, label="Sensor data")
+        for sensor in enumerate(individualAverages):
+            plt.plot(sensor[1], label = "Sensor " + str(sensor[0]) + " Averages")
+    for sensor in enumerate(data):
+        plt.plot(sensor[1], label="Sensor " + str(sensor[0]))
     plt.legend(loc='best')
+    plt.savefig("data.png")
     plt.show()
 
 
+
 #To be implemented with notification system
-def emergency(time, type, sensor = None):
+def emergency(time, type, reading, sensor = None):
     if type == "Total":
-        print("EMERGENCY at time " + str(time) + " for total sensor average")
+        print("EMERGENCY at time " + str(time) + " for total sensor average" + ". Reading=" + str(reading))
     if type == "Individual":
-        print("EMERGENCY at time " + str(time) + " for individual sensor average")
+        print("EMERGENCY at time " + str(time) + " for sensor " + str(sensor) + ". Reading=" + str(reading))
     
 
+def saveToFile(data):
+    file = open("data.txt", "w")
+    np.savetxt(file, data)
+    file.close()
+
+
 #Sample runner code
-data = generateData(2, 0.5, 2)
-print("Raw sensor data:")
-print(data)
+data = generateData(2, 0.1, 20)
+#print("Raw sensor data:")
+#print(data)
 
-totAvgs = findTotalMovingAverages(data, 3)
-print("Total averages")
-print(totAvgs)
+totAvgs = findTotalMovingAverages(data, 20)
+#print("Total averages")
+#print(totAvgs)
 
-indAvgs = findIndividualMovingAverages(data, 3)
-print("Individual averages:")
-print(indAvgs)
+indAvgs = findIndividualMovingAverages(data, 20)
+#print("Individual averages:")
+#print(indAvgs)
 
-totalEmergencyThreashold = 5
-individualEmergencyThreashold = 10
+totalEmergencyThreashold = 50
+individualEmergencyThreashold = 100
 
 #Check averages for emergency
 for datapt in enumerate(totAvgs):
     if datapt[1] > totalEmergencyThreashold or datapt[1] < -totalEmergencyThreashold:
-        emergency(datapt[0], "Total")
+        emergency(datapt[0], "Total", datapt[1])
 
-for avg in indAvgs:
-    for datapt in enumerate(avg):
+for avg in enumerate(indAvgs):
+    for datapt in enumerate(avg[1]):
         if datapt[1] > individualEmergencyThreashold or datapt[1] < -individualEmergencyThreashold:
-            emergency(datapt[0], "Individual")
+            emergency(datapt[0], "Individual", datapt[1], avg[0])
+
+saveToFile(indAvgs)
 
 showPlot(data, totAvgs, indAvgs)
 
 
 #TODO
-#Add labels to plot
-#Add what sensor caused emergency
-#Number sensors in plot
 #Output data to file
