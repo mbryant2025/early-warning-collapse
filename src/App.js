@@ -1,21 +1,25 @@
-import React, { useState } from 'react';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import { db } from "./utils/firebase";
+import { ref, onValue } from "firebase/database";
+import "./App.css";
 
 function App() {
+  const [flexState, setFlexState] = useState(0);
 
-  const[ledState, setLedState] = useState(0);
+  useEffect(() => {
+    const flexStateRef = ref(db, "ESP1/FlexSensor");
+    onValue(flexStateRef, (snapshot) => {
+      console.log(snapshot);
+      const newState = snapshot.val();
+      setFlexState(newState);
+    });
+  }, []);
 
-  const handleLEDToggle = () => {
-    setLedState(!ledState ? 1 : 0);
-    fetch('/led', { method: 'PUT', body: ledState ? '0' : '1' })
-      .then(response => response.text())
-      .then(console.log(ledState));
-  }
- 
   return (
-    <div className="App">
-      <button type="button" onClick={handleLEDToggle}>Toggle LED</button>
-      <p>State of LED: {ledState}</p>
+    <div>
+      <h1>Sensor Reading Test</h1>
+      <h4>Sensor Data is collected by the ESP32 and stored in a Firebase Realtime Database. This app is set up to detect changes in the database and update the value accordingly.</h4>
+      <p>Flex Sensor Reading: {flexState}</p>
     </div>
   );
 }
