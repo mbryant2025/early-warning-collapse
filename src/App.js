@@ -10,8 +10,8 @@ function App() {
     const flexStateRef = ref(db, "ESP1/FlexSensor");
     onValue(flexStateRef, (snapshot) => {
       console.log(snapshot);
-      const newState = snapshot.val();
-      setFlexState(newState);
+      //const newState = snapshot.val();
+      //setFlexState(newState);
     });
   }, []);
 
