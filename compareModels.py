@@ -48,7 +48,7 @@ for t in range(len(data)):
 max = (None, 0)
 for model in models:
     r2 = r2(data, predictions)
-    if(r2) > max[1]:
+    if r2 > max[1]:
         max = (model, r2)
 
 print(model)
