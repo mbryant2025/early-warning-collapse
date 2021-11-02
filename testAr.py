@@ -5,10 +5,11 @@ from statsmodels.tsa.ar_model import AutoReg
 from sklearn.metrics import mean_squared_error
 from math import sqrt
 # load dataset
-series = read_csv('daily-min-temperatures.csv', header=0, index_col=0, parse_dates=True, squeeze=True)
+series = read_csv('SP500.csv', header=0, index_col=0, parse_dates=True, squeeze=True)
 # split dataset
 X = series.values
-train, test = X[1:len(X)-70], X[len(X)-70:]
+test_split = 100
+train, test = X[1:len(X)-test_split], X[len(X)-test_split:]
 # train autoregression
 window = 2
 model = AutoReg(train, lags=2)
@@ -27,9 +28,9 @@ for t in range(len(test)):
 	obs = test[t]
 	predictions.append(yhat)
 	history.append(obs)
-	print('predicted=%f, expected=%f' % (yhat, obs))
+	#print('predicted=%f, expected=%f' % (yhat, obs))
 rmse = sqrt(mean_squared_error(test, predictions))
-print('Test RMSE: %.3f' % rmse)
+#print('Test RMSE: %.3f' % rmse)
 # plot
 pyplot.plot(test)
 pyplot.plot(predictions, color='red')
