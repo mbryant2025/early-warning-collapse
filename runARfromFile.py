@@ -1,19 +1,18 @@
-# create and evaluate an updated autoregressive model
 from pandas import read_csv
 from matplotlib import pyplot as plt
 from statsmodels.tsa.ar_model import AutoReg
-from sklearn.metrics import mean_squared_error
-from math import sqrt
 import pickle
 
+#Number of previous data points loaded
+backtrack = 150
+
+
 # load dataset
-series = read_csv('SP500.csv', header=0, index_col=0, parse_dates=True, squeeze=True)
+series = read_csv('SP5002.csv', header=0, index_col=0, parse_dates=True, squeeze=True)
 
 # split dataset
-X = series.values
-test_split = 100
-train, test = X[1:len(X)-test_split], X[len(X)-test_split:]
-window = 2
+prev = series.values[-backtrack:]
+
 
 #load model
 file_to_read = open("model_fit.obj", "rb")
@@ -22,23 +21,15 @@ file_to_read.close()
 coef = model_fit.params
 
 # walk forward over time steps in test
-history = train[len(train)-window:]
-history = [history[i] for i in range(len(history))]
-predictions = list()
-for t in range(len(test)):
-	length = len(history)
-	lag = [history[i] for i in range(length-window,length)]
-	yhat = coef[0]
-	for d in range(window):
-		yhat += coef[d+1] * lag[window-d-1]
-	obs = test[t]
-	predictions.append(yhat)
-	history.append(obs)
-	#print('predicted=%f, expected=%f' % (yhat, obs))
-rmse = sqrt(mean_squared_error(test, predictions))
-#print('Test RMSE: %.3f' % rmse)
+window = 2
 
-# plot
-plt.plot(test)
-plt.plot(predictions, color='red')
-plt.show()
+predictions = list()
+length = len(prev)
+lag = [prev[i] for i in range(length-window,length)]
+yhat = coef[0]
+for d in range(window):
+	yhat += coef[d+1] * lag[window-d-1]
+prediction = yhat
+
+# output
+print(prediction)
