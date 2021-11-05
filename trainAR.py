@@ -1,4 +1,3 @@
-# create and evaluate an updated autoregressive model
 from pandas import read_csv
 from statsmodels.tsa.ar_model import AutoReg
 import pickle
