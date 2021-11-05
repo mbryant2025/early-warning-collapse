@@ -9,10 +9,7 @@ backtrack = 150
 
 # load dataset
 series = read_csv('SP5002.csv', header=0, index_col=0, parse_dates=True, squeeze=True)
-
-# split dataset
 prev = series.values[-backtrack:]
-
 
 #load model
 file_to_read = open("model_fit.obj", "rb")
@@ -20,9 +17,8 @@ model_fit = pickle.load(file_to_read)
 file_to_read.close()
 coef = model_fit.params
 
-# walk forward over time steps in test
+#run through model
 window = 2
-
 predictions = list()
 length = len(prev)
 lag = [prev[i] for i in range(length-window,length)]
