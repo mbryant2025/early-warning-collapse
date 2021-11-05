@@ -77,8 +77,13 @@ radarx = []
 for l in range(1,len(arr)):
     arrtest += [((arry[l]-arry[l-1])**2)**.5]
 if len(arrtest) > 5:
-    radar = [max(arrtest)*np.sin(90*counter)]
-    radarx = [max(arrtest)*np.cos(90*counter)]
+    if max(arrtest) > (arry[-5] - arry[-1]):
+        radar = [max(arrtest)*np.sin(90*counter)]
+        radarx = [max(arrtest)*np.cos(90*counter)]
+        
+    else:
+        radar = [(arry[-5] - arry[-1]) * np.sin(90*counter)]
+        radarx = [(arry[-5] - arry[-1])*np.cos(90*counter)]
     arrtest = arrtest.pop(0)
 
 ax.scatter(radarx,radar)
