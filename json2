@@ -1,0 +1,8 @@
+if __name__ == '__main__':
+    fileObject = open("Proto3.json", "r")
+    jsonContent = fileObject.read()
+    aList = json.loads(jsonContent)
+    flex = (aList["ESP1"]["FlexSensor"])
+    tilt = (aList["ESP1"]["TiltSensor"])
+    lflex = list(flex.items())
+    ltilt = list(tilt.items())
