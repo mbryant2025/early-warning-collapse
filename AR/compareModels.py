@@ -38,7 +38,7 @@ def compare(logs, sensorUnit, sensor, modelDirectory):
 		readings = readings[-timescale:]
 
 	if len(readings) < 2:
-		raise ValueError("timescale must be >= 3")
+		raise ValueError("timescale must be >= 2")
 
 	modelScores = {}
 
