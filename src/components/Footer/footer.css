@@ -1,0 +1,29 @@
+.page-styles{
+    margin-left: 6rem;
+    margin-right: 6rem;
+}
+
+.logo{
+    border-radius: 60%;
+    max-height: 65px;
+    max-width: 65px;
+}
+
+.FooterItems{
+    background: lavender;
+    height: 100px;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    font-size: 1.2rem;
+    vertical-align: middle;
+}
+
+.footer-text{
+    font-size: 18pt;
+    background: lavender;
+    padding: auto;
+    text-align: left;
+    vertical-align: middle;
+    margin: auto;
+}
