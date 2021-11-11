@@ -1,14 +1,13 @@
 import React from 'react';
 import './App.css';
 import Navbar from "./components/Navbar/Navbar";
-
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from './pages';
 import About from './pages/about';
 import Readings from './pages/readings.js';
 import Sensors from './pages/sensors';
 import Alert from './pages/alert';
-import Footer from './footer';
+import Footer from './components/Footer/footer';
 
 
 function App() {
