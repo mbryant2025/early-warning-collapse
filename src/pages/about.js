@@ -1,13 +1,12 @@
 import React from "react";
 import './page.css'
-import logo from './images/EWS-Banner.png';
 
 
 const About = () => {
     return (
         <div style={{fontFamily: 'sans-serif', marginLeft:'10rem', marginRight: '10rem'}}>
             
-            <img className = "front-image" src={logo} alt="logo" />
+            <img className = "front-image" src="./images/EWS-Banner.png" alt="./images/EWS-Banner.png" />
             <h1 
             style = {{
                 display:'flex',
@@ -79,7 +78,7 @@ const About = () => {
             GitHub-- Early Collapse Warning System
             </a></span>
             <br></br>
-            <span>Website:&nbsp;<a href="https://sites.duke.edu/ewcd/vision/">
+            <span>Website/Future Directions:&nbsp;<a href="https://sites.duke.edu/ewcd/vision/">
             About The Project
             </a></span>
 
@@ -88,8 +87,3 @@ const About = () => {
 };
 
 export default About;
-
-/*
-
-
-*/
