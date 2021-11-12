@@ -32,6 +32,9 @@ def runModel(data, model, sensorUnit, sensor):
 
 	return prediction
 
+#Returns next projected value from data
+#data is a list representing sensor data
+#model is the name of a .obj file in local directory. This is obtained from trainAR.py
 def runModelFromArray(data, model):
 	#number of previous data points loaded
 	backtrack = 150
