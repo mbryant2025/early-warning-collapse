@@ -46,3 +46,5 @@ def compare(logs, sensorUnit, sensor, modelDirectory):
 		modelScores[model] = r2(readings[2:], determinePredictions(model, readings))
 
 	return max(modelScores, key=modelScores.get)
+
+

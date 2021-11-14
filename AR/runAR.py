@@ -3,7 +3,7 @@ import pickle
 from ARfromJSON import loadData
 
 #Returns next projected value from data
-#data is the pathname for a JSON file containing sensor readings
+#data is the name of a JSON file in the local directory containing sensor readings
 #model is the name of a .obj file in local directory. This is obtained from trainAR.py
 #sensorUnit and sensor are to find the data in the JSON file, ex. "ESP1" and "FlexSensor" respectively
 def runModel(data, model, sensorUnit, sensor):
